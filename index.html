@@ -3,17 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mega Box Animation</title>
+    <title>Brawl Stars Name Generator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="mega-box">
-            <div class="lid"></div>
-            <div class="body"></div>
-            <div class="coin"></div>
-        </div>
-    </div>
-    <script src="script.js"></script>
+    <header>
+        <h1>Brawl Stars Name Generator</h1>
+    </header>
+    
+    <main>
+        <section class="generator">
+            <h2>Generate Your Brawl Stars Name!</h2>
+            <button id="generateButton">Generate Name</button>
+            <p id="nameDisplay"></p>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 Brawl Stars Name Generator</p>
+    </footer>
+
+    <script>
+        const names = [
+            "BrawlerKing", "StarCrusher", "BrawlMaster", 
+            "EpicBrawler", "StarFury", "BrawlWizard", 
+            "NameNinja", "BrawlLegend", "StarWarrior", 
+            "BrawlBeast"
+        ];
+
+        document.getElementById('generateButton').addEventListener('click', function() {
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            document.getElementById('nameDisplay').textContent = randomName;
+        });
+    </script>
 </body>
 </html>
