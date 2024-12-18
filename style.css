@@ -19,6 +19,10 @@ body {
     cursor: pointer;
 }
 
+#drop-area.highlight {
+    border-color: #666;
+}
+
 input[type="range"] {
     width: 100%;
 }
