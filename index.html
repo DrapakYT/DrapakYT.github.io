@@ -3,38 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brawl Stars Name Generator</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Video Motion Blur App</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="ffmpeg.js"></script> <!-- Include the local ffmpeg.js file -->
 </head>
 <body>
-    <header>
-        <h1>Brawl Stars Name Generator</h1>
-    </header>
-    
-    <main>
-        <section class="generator">
-            <h2>Generate Your Brawl Stars Name!</h2>
-            <button id="generateButton">Generate Name</button>
-            <p id="nameDisplay"></p>
-        </section>
-    </main>
-    
-    <footer>
-        <p>&copy; 2023 Brawl Stars Name Generator</p>
-    </footer>
-
-    <script>
-        const names = [
-            "BrawlerKing", "StarCrusher", "BrawlMaster", 
-            "EpicBrawler", "StarFury", "BrawlWizard", 
-            "NameNinja", "BrawlLegend", "StarWarrior", 
-            "BrawlBeast"
-        ];
-
-        document.getElementById('generateButton').addEventListener('click', function() {
-            const randomName = names[Math.floor(Math.random() * names.length)];
-            document.getElementById('nameDisplay').textContent = randomName;
-        });
-    </script>
+    <div class="container">
+        <h1>Video Motion Blur App</h1>
+        <div id="drop-area">
+            <p>Drop your video file here or click to upload</p>
+            <input type="file" id="fileElem" accept="video/*" style="display:none;">
+            <label for="fileElem">Upload Video</label>
+        </div>
+        <div>
+            <label for="speed">Speed (0.5x to 2x):</label>
+            <input type="range" id="speed" min="0.5" max="2" step="0.1" value="1">
+        </div>
+        <div>
+            <label for="blend">Blend (0 to 100):</label>
+            <input type="range" id="blend" min="0" max="100" step="1" value="50">
+        </div>
+        <button id="processBtn">Process Video</button>
+        <video id="outputVideo" controls></video>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
