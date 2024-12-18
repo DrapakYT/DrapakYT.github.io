@@ -8,28 +8,45 @@ const outputVideo = document.getElementById('outputVideo');
 
 let videoFile;
 
+// Open file dialog when the drop area is clicked
 dropArea.addEventListener('click', () => {
     fileElem.click();
 });
 
+// Prevent default behavior when dragging over the drop area
 dropArea.addEventListener('dragover', (event) => {
     event.preventDefault();
     dropArea.classList.add('highlight');
 });
 
+// Remove highlight when dragging leaves the drop area
 dropArea.addEventListener('dragleave', () => {
     dropArea.classList.remove('highlight');
 });
 
+// Handle file drop
 dropArea.addEventListener('drop', (event) => {
     event.preventDefault();
     dropArea.classList.remove('highlight');
-    videoFile = event.dataTransfer.files[0];
-    if (videoFile) {
+    const files = event.dataTransfer.files;
+    if (files.length > 0) {
+        videoFile = files[0];
         console.log('File uploaded:', videoFile.name);
+        document.getElementById('fileLabel').innerText = videoFile.name; // Show the file name
     }
 });
 
+// Handle file selection
+fileElem.addEventListener('change', (event) => {
+    const files = event.target.files;
+    if (files.length > 0) {
+        videoFile = files[0];
+        console.log('File uploaded:', videoFile.name);
+        document.getElementById('fileLabel').innerText = videoFile.name; // Show the file name
+    }
+});
+
+// Process the video when the button is clicked
 processBtn.addEventListener('click', async () => {
     if (!videoFile) {
         alert('Please upload a video file first.');
@@ -40,13 +57,3 @@ processBtn.addEventListener('click', async () => {
     const blend = blendInput.value;
 
     const ffmpeg = createFFmpeg({ log: true });
-    await ffmpeg.load();
-
-    ffmpeg.FS('writeFile', 'input.mp4', await fetchFile(videoFile));
-    await ffmpeg.run('-i', 'input.mp4', '-filter:v', `tblend=all_mode=average:all_opacity=${blend / 100}`, '-filter:v', `setpts=${1 / speed}*PTS`, 'output.mp4');
-    
-    const data = ffmpeg.FS('readFile', 'output.mp4');
-    const videoURL = URL.createObjectURL(new Blob([data.buffer], { type: 'video/mp4' }));
-    outputVideo.src = videoURL;
-    outputVideo.load();
-});
